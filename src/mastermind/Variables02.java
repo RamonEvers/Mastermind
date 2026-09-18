@@ -1,4 +1,4 @@
-package basisProgrammeren;
+package mastermind;
 
 
 import java.util.Scanner;
