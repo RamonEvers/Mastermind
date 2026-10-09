@@ -1,6 +1,5 @@
 package mastermind;
 
-
 import java.util.Scanner;
 import java.util.Random;
 
@@ -10,27 +9,26 @@ public class Variables02 {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
-        String[] kleuren = {"rood", "paars", "blauw", "geel", "oranje"};
+        String[] kleuren = {"rood", "paars", "blauw", "geel", "oranje", "groen"};
         String[] code = new String[4];
 
-       
         for (int i = 0; i < 4; i++) {
-            code[i] = kleuren[random.nextInt(5)];
+            code[i] = kleuren[random.nextInt(6)];
         }
 
         int poging = 1;
         boolean gewonnen = false;
 
         System.out.println("=== MASTERMIND ===");
-        System.out.println("Kies uit: rood, paars, blauw, geel, oranje");
+        System.out.println("Je hebt 10 pogingen om de code te raden.");
+        System.out.println("Kies uit: rood, paars, blauw, geel, oranje, groen");
 
-        while (!gewonnen) {
+        while (poging <= 10 && !gewonnen) {
 
             String[] gok = new String[4];
 
             System.out.println("\nPoging " + poging);
 
-          
             for (int i = 0; i < 4; i++) {
                 System.out.print("Kleur " + (i + 1) + ": ");
                 gok[i] = scanner.nextLine().toLowerCase();
@@ -42,7 +40,6 @@ public class Variables02 {
             boolean[] codeGebruikt = new boolean[4];
             boolean[] gokGebruikt = new boolean[4];
 
-            
             for (int i = 0; i < 4; i++) {
                 if (gok[i].equals(code[i])) {
                     zwart++;
@@ -51,14 +48,12 @@ public class Variables02 {
                 }
             }
 
-          
             for (int i = 0; i < 4; i++) {
                 if (!gokGebruikt[i]) {
                     for (int j = 0; j < 4; j++) {
                         if (!codeGebruikt[j] && gok[i].equals(code[j])) {
                             wit++;
                             codeGebruikt[j] = true;
-                            gokGebruikt[i] = true;
                             break;
                         }
                     }
@@ -68,7 +63,6 @@ public class Variables02 {
             System.out.println("Zwarte pionnen: " + zwart);
             System.out.println("Witte pionnen: " + wit);
 
-            
             if (zwart == 4) {
                 gewonnen = true;
                 System.out.println("\nGEWONNEN!");
@@ -81,6 +75,17 @@ public class Variables02 {
             poging++;
         }
 
+        if (!gewonnen) {
+            System.out.println("\nVERLOREN!");
+            System.out.println("Je hebt alle 10 pogingen gebruikt.");
+            System.out.print("De geheime code was: ");
+
+            for (int i = 0; i < 4; i++) {
+                System.out.print(code[i] + " ");
+            }
+        }
+
         scanner.close();
     }
 }
+
