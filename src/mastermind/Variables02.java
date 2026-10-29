@@ -1,3 +1,4 @@
+
 package mastermind;
 
 import java.util.Scanner;
@@ -9,7 +10,11 @@ public class Variables02 {
         Scanner scanner = new Scanner(System.in);
         Random random = new Random();
 
-        String[] kleuren = {"rood", "paars", "blauw", "geel", "oranje", "groen"};
+        String[] kleuren = {
+            "rood", "paars", "blauw",
+            "geel", "oranje", "groen"
+        };
+
         String[] code = new String[4];
 
         for (int i = 0; i < 4; i++) {
@@ -30,8 +35,31 @@ public class Variables02 {
             System.out.println("\nPoging " + poging);
 
             for (int i = 0; i < 4; i++) {
-                System.out.print("Kleur " + (i + 1) + ": ");
-                gok[i] = scanner.nextLine().toLowerCase();
+
+                boolean geldigeKleur = false;
+
+                while (!geldigeKleur) {
+
+                    System.out.print("Kleur " + (i + 1) + ": ");
+                    String invoer = scanner.nextLine().trim().toLowerCase();
+
+                    for (int j = 0; j < kleuren.length; j++) {
+                        if (invoer.equals(kleuren[j])) {
+                            geldigeKleur = true;
+                            gok[i] = invoer;
+                            break;
+                        }
+                    }
+
+                    if (!geldigeKleur) {
+                        System.out.println(
+                            "cheeky boy! ramon does not approve"
+                        );
+                        System.out.println(
+                            "Kies alleen: rood, paars, blauw, geel, oranje of groen."
+                        );
+                    }
+                }
             }
 
             int zwart = 0;
